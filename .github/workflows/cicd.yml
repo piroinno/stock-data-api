@@ -45,14 +45,9 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/postgres
           FLAG_SMITH_ENVIRONMENT_KEY: ${{ secrets.FLAG_SMITH_ENVIRONMENT_KEY }}
-      - name: Build Package
+      - name: Build Image
         run: |
-          pip install poetry
-          poetry build
-      - name: Upload Package
-        run: |
-          poetry config repositories.pypifeed ${{ secrets.AZURE_PYPI_REPO }}
-          poetry publish -r pypifeed -u a -p ${{ secrets.AZURE_PYPI_PASSWORD }}
+          docker build -t stock-data-api -EXTRA_INDEX_URL:$"https://${{ secrets.AZURE_PYPI_PASSWORD }}@${{ secrets.AZURE_PYPI_FEED }}" Dockerfile
   
   # ${{ if github.ref == 'refs/heads/main' or github.ref == 'refs/heads/dev' or github.ref == 'refs/heads/uat' }}:
   #   deploy:
