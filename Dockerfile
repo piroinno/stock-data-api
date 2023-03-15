@@ -22,6 +22,7 @@ RUN apk update && \
 
 FROM base AS poetry-base
 
+RUN echo $POETRY_VENV && echo $POETRY_HOME && echo $POETRY_CACHE_DIR && echo $POETRY_VERSION && echo $AZURE_PYPI_FEED && echo $AZURE_PYPI_PASSWORD
 RUN python -m venv $POETRY_VENV \
     && $POETRY_VENV/bin/pip install -U pip setuptools \
     && $POETRY_VENV/bin/pip install poetry==$POETRY_VERSION
