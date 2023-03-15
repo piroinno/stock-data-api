@@ -31,6 +31,7 @@ jobs:
           python-version: 3.11
       - name: Install dependencies
         run: |
+          pip install poetry
           poetry source add --secondary pypifeed https://${{ secrets.AZURE_PYPI_PASSWORD }}@${{ secrets.AZURE_PYPI_FEED }}
           poetry install --no-root
       - name: Lint with flake8
