@@ -43,7 +43,7 @@ jobs:
       - name: Connect to PostgreSQL and Test with pytest
         run: |
           pip install pytest
-          pytest
+          poetry run pytest
         env:
           DATABASE_URL: postgresql://postgres:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/postgres
           FLAG_SMITH_ENVIRONMENT_KEY: ${{ secrets.FLAG_SMITH_ENVIRONMENT_KEY }}
