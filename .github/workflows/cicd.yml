@@ -47,7 +47,7 @@ jobs:
           FLAG_SMITH_ENVIRONMENT_KEY: ${{ secrets.FLAG_SMITH_ENVIRONMENT_KEY }}
       - name: Build Image
         run: |
-          docker build -t stock-data-api -EXTRA_INDEX_URL:$"https://${{ secrets.AZURE_PYPI_PASSWORD }}@${{ secrets.AZURE_PYPI_FEED }}" Dockerfile
+          docker build -t stock-data-api --build-arg EXTRA_INDEX_URL="https://${{ secrets.AZURE_PYPI_PASSWORD }}@${{ secrets.AZURE_PYPI_FEED }}" Dockerfile
   
   # ${{ if github.ref == 'refs/heads/main' or github.ref == 'refs/heads/dev' or github.ref == 'refs/heads/uat' }}:
   #   deploy:
