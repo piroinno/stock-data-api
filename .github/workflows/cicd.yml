@@ -44,6 +44,7 @@ jobs:
           pytest
         env:
           DATABASE_URL: postgresql://postgres:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/postgres
+          FLAG_SMITH_ENVIRONMENT_KEY: ${{ secrets.FLAG_SMITH_ENVIRONMENT_KEY }}
       - name: Build Package
         run: |
           pip install poetry
