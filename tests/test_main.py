@@ -108,25 +108,25 @@ def add_exchanges(db: SessionLocal):
 def mock_get_data_lake_service_client(monkeypatch):
     def mock_return(*args, **kwargs):
         return "mocked"
-    monkeypatch.setattr("stock.data.api.main.get_data_lake_service_client", mock_return)
+    monkeypatch.setattr("get_data_lake_service_client", mock_return)
 
 @pytest.fixture
 def mock_get_data_lake_file_system_client(monkeypatch):
     def mock_return(*args, **kwargs):
         return "mocked"
-    monkeypatch.setattr("stock.data.api.main.get_data_lake_file_system_client", mock_return)
+    monkeypatch.setattr("get_data_lake_file_system_client", mock_return)
 
 @pytest.fixture
 def mock_get_eod_ticker(monkeypatch):
     def mock_return(*args, **kwargs):
         return "mocked"
-    monkeypatch.setattr("stock.data.api.main.get_eod_ticker", mock_return)
+    monkeypatch.setattr("get_eod_ticker", mock_return)
 
 @pytest.fixture
 def mock_flagsmith(monkeypatch):
     def mock_return(*args, **kwargs):
         return "mocked"
-    monkeypatch.setattr("stock.data.api.main.flagsmith", mock_return)
+    monkeypatch.setattr("flagsmith", mock_return)
 
 def test_get_data_lake_service_client(mock_get_data_lake_service_client):
     try:
