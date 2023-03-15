@@ -1,7 +1,18 @@
 FROM docker.io/python:3.11-alpine AS base
 
-ARG EXTRA_INDEX_URL=${EXTRA_INDEX_URL}
-ENV EXTRA_INDEX_URL=${EXTRA_INDEX_URL}
+ARG AZURE_PYPI_FEED=${AZURE_PYPI_FEED} \
+    AZURE_PYPI_PASSWORD=${AZURE_PYPI_PASSWORD} \
+ENV AZURE_PYPI_FEED=${AZURE_PYPI_FEED} \
+    AZURE_PYPI_PASSWORD=${AZURE_PYPI_PASSWORD} \
+    PYTHONFAULTHANDLER=1 \
+    PYTHONHASHSEED=random \
+    PYTHONUNBUFFERED=1 \
+    POETRY_VERSION=1.4.0 \
+    POETRY_HOME=/opt/poetry \
+    POETRY_VENV=/opt/venv \
+    POETRY_CACHE_DIR=/opt/.cache \
+    PIP_DEFAULT_TIMEOUT=100 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
 
 RUN apk update && \
     apk add --no-cache \
@@ -9,24 +20,28 @@ RUN apk update && \
     libpq-dev \
     gcc
 
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
+FROM base AS poetry-base
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt --extra-index-url $EXTRA_INDEX_URL
+RUN python -m venv ${POETRY_VENV} \
+    && $POETRY_VENV/bin/pip install -U pip setuptools \
+    && $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
 
-FROM python:3.11-alpine
+FROM base as app
+
+COPY --from=poetry-base ${POETRY_VENV} ${POETRY_VENV}
+ENV PATH="${PATH}:${POETRY_VENV}/bin"
+WORKDIR /app
+COPY pyproject.toml poetry.lock ./
+RUN poetry check
+RUN poetry source add --secondary pypifeed "https://${AZURE_PYPI_FEED}" && \
+    poetry config http-basic.pypifeed pypifeed ${AZURE_PYPI_PASSWORD} && \
+    poetry config virtualenvs.create false && \
+    poetry install --no-interaction --no-root --no-cache --without dev
 
 RUN apk update && \
     apk add --no-cache \
     libpq-dev
 
-COPY --from=base /opt/venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH" \
-    PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1
+COPY ./src/stock/data/api/*py /app
 
-WORKDIR /app
-COPY src/stock/data/api/*.py /app/
-
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD [ "poetry", "run", "python", "-m", "uvicorn", "main:app", "--host=0.0.0.0", "--port", "5000"]
