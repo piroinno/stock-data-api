@@ -1,5 +1,5 @@
 import datetime
-from venv import logger
+import logging
 import pytz
 from fastapi import FastAPI
 from flagsmith import Flagsmith

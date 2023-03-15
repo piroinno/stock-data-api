@@ -1,0 +1,58 @@
+name: Stock Data API Build / Test / Deploy
+run-name: ${{ github.event.repository.updated_at}}_${{ github.run_number }}_${{ github.ref }}
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - dev
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Lint with flake8
+        run: |
+          pip install flake8
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Connect to PostgreSQL and Test with pytest
+        run: |
+          pip install pytest
+          pytest
+        env:
+          DATABASE_URL: postgresql://postgres:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/postgres
+      - name: Build Package
+        run: |
+          pip install poetry
+          poetry build
+      - name: Upload Package
+        run: |
+          poetry config repositories.pypifeed ${{ secrets.AZURE_PYPI_REPO }}
+          poetry publish -r pypifeed -u a -p ${{ secrets.AZURE_PYPI_PASSWORD }}
+  
+  # ${{ if github.ref == 'refs/heads/main' or github.ref == 'refs/heads/dev' or github.ref == 'refs/heads/uat' }}:
+  #   deploy:
+  
