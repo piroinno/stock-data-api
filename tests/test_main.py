@@ -14,7 +14,7 @@ from azure.core._match_conditions import MatchConditions
 from azure.identity import DefaultAzureCredential
 from stock.data.model import crud
 from stock.data.model import models
-from stock.data.api.database import SessionLocal, engine, Base
+from stock.data.model.database import  SessionLocal, engine, Base
 
 def init_test_db():
     Base.metadata.create_all(bind=engine)

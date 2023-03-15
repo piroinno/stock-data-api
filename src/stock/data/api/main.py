@@ -9,7 +9,7 @@ from azure.storage.filedatalake import DataLakeServiceClient
 from azure.core._match_conditions import MatchConditions
 from azure.storage.filedatalake._models import ContentSettings
 from stock.data.model import crud
-from .database import SessionLocal
+from stock.data.model.database import  SessionLocal
 
 flagsmith = Flagsmith(environment_key=os.getenv("FLAG_SMITH_ENVIRONMENT_KEY"))
 flags = flagsmith.get_environment_flags()
