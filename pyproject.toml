@@ -8,6 +8,16 @@ packages = [{include = "stock", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+azure-identity = "^1.12.0"
+azure-storage-file-datalake = "^12.10.1"
+fastapi = "^0.94.1"
+psycopg2 = "^2.9.5"
+pydantic = "^1.10.6"
+pytz = "^2022.7.1"
+SQLAlchemy = "^2.0.6"
+uvicorn = "^0.21.0"
+flagsmith = "^3.2.0"
+stock.data.model = "^0.1.14"
 
 [build-system]
 requires = ["poetry-core"]

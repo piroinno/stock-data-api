@@ -2,7 +2,6 @@ FROM docker.io/python:3.11-alpine AS base
 
 ARG EXTRA_INDEX_URL=${EXTRA_INDEX_URL}
 ENV EXTRA_INDEX_URL=${EXTRA_INDEX_URL}
-# Install dependencies
 
 RUN apk update && \
     apk add --no-cache \
