@@ -17,7 +17,7 @@ pytz = "^2022.7.1"
 SQLAlchemy = "^2.0.6"
 uvicorn = "^0.21.0"
 flagsmith = "^3.2.0"
-stock.data.model = "^0.1.14"
+stock-data-model = "^0.1.14"
 
 [build-system]
 requires = ["poetry-core"]
