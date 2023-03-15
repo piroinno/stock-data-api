@@ -4,10 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["piroinno <peter.irojah@piroinno.com>"]
 readme = "README.md"
-
-packages = [
-  { include = "stock", from = "src" }
-]
+packages = [{include = "stock", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
