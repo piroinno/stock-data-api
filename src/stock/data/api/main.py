@@ -13,7 +13,8 @@ from .database import SessionLocal
 
 flagsmith = Flagsmith(environment_key=os.getenv("FLAG_SMITH_ENVIRONMENT_KEY"))
 flags = flagsmith.get_environment_flags()
-
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 app = FastAPI()
 
 
