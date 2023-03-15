@@ -1,7 +1,7 @@
 FROM docker.io/python:3.11-alpine AS base
 
 ARG AZURE_PYPI_FEED=${AZURE_PYPI_FEED} \
-    AZURE_PYPI_PASSWORD=${AZURE_PYPI_PASSWORD} \
+    AZURE_PYPI_PASSWORD=${AZURE_PYPI_PASSWORD}
 ENV AZURE_PYPI_FEED=${AZURE_PYPI_FEED} \
     AZURE_PYPI_PASSWORD=${AZURE_PYPI_PASSWORD} \
     PYTHONFAULTHANDLER=1 \
@@ -22,7 +22,6 @@ RUN apk update && \
 
 FROM base AS poetry-base
 
-RUN echo ${POETRY_VENV} && echo ${POETRY_HOME} && echo ${POETRY_CACHE_DIR} && echo ${POETRY_VERSION} && echo ${AZURE_PYPI_FEED} && echo ${AZURE_PYPI_PASSWORD}
 RUN python -m venv ${POETRY_VENV} \
     && $POETRY_VENV/bin/pip install -U pip setuptools \
     && $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
@@ -30,7 +29,11 @@ RUN python -m venv ${POETRY_VENV} \
 FROM base as app
 
 COPY --from=poetry-base ${POETRY_VENV} ${POETRY_VENV}
-ENV PATH="${PATH}:${POETRY_VENV}/bin"
+ENV PATH="${PATH}:${POETRY_VENV}/bin" \
+    POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_NO_INTERACTION=1 \
+    POETRY_NO_DEV=1
+
 WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 RUN poetry check
