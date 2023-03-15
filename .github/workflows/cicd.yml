@@ -31,14 +31,15 @@ jobs:
           python-version: 3.11
       - name: Install artifacts keyring
         run: |
-          pip install artifacts-keyring
+          pip install keyring artifacts-keyring
       - name: Install dependencies
         run: |
-          export ARTIFACTS_KEYRING_NONINTERACTIVE_MODE=1
-          export ARTIFACTS_KEYRING_PASSWORD=${{ secrets.AZURE_PYPI_PASSWORD }}
           pip install poetry
           poetry source add --secondary pypifeed "https://${{ secrets.AZURE_PYPI_FEED }}"
           poetry install --no-root
+        env:
+          ARTIFACTS_KEYRING_NONINTERACTIVE_MODE: 1
+          ARTIFACTS_KEYRING_PASSWORD: ${{ secrets.AZURE_PYPI_PASSWORD }}
       - name: Lint with flake8
         run: |
           pip install flake8
