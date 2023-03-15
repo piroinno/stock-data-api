@@ -29,10 +29,7 @@ RUN python -m venv ${POETRY_VENV} \
 FROM base as app
 
 COPY --from=poetry-base ${POETRY_VENV} ${POETRY_VENV}
-ENV PATH="${PATH}:${POETRY_VENV}/bin" \
-    POETRY_VIRTUALENVS_CREATE=false \
-    POETRY_NO_INTERACTION=1 \
-    POETRY_NO_DEV=1
+ENV PATH="${PATH}:${POETRY_VENV}/bin"
 
 WORKDIR /app
 COPY pyproject.toml poetry.lock ./
@@ -46,6 +43,6 @@ RUN apk update && \
     apk add --no-cache \
     libpq-dev
 
-COPY ./src/stock/data/api/*py /app
+COPY ./src/stock/data/api/*py /app/
 
 CMD [ "poetry", "run", "python", "-m", "uvicorn", "main:app", "--host=0.0.0.0", "--port", "5000"]
