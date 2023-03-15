@@ -22,19 +22,19 @@ RUN apk update && \
 
 FROM base AS poetry-base
 
-RUN python -m venv ${POETRY_VENV} \
+RUN python -m venv $POETRY_VENV \
     && $POETRY_VENV/bin/pip install -U pip setuptools \
-    && $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
+    && $POETRY_VENV/bin/pip install poetry==$POETRY_VERSION
 
 FROM base as app
 
-COPY --from=poetry-base ${POETRY_VENV} ${POETRY_VENV}
-ENV PATH="${PATH}:${POETRY_VENV}/bin"
+COPY --from=poetry-base $POETRY_VENV $POETRY_VENV
+ENV PATH="$PATH:$POETRY_VENV/bin"
 WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 RUN poetry check
-RUN poetry source add --secondary pypifeed "https://${AZURE_PYPI_FEED}" && \
-    poetry config http-basic.pypifeed pypifeed ${AZURE_PYPI_PASSWORD} && \
+RUN poetry source add --secondary pypifeed "https://$AZURE_PYPI_FEED" && \
+    poetry config http-basic.pypifeed pypifeed $AZURE_PYPI_PASSWORD && \
     poetry config virtualenvs.create false && \
     poetry install --no-interaction --no-root --no-cache --without dev
 
