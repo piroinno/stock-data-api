@@ -71,6 +71,7 @@ jobs:
           testdatabasehost: localhost
           testdatabasepassword: ${{ secrets.POSTGRES_PASSWORD }}
           appfolder: ${{ matrix.app }}
+          flagsmithenvironmentkey: ${{ secrets.FLAG_SMITH_ENVIRONMENT_KEY }}
 
   build:
     runs-on: ubuntu-latest
@@ -92,5 +93,4 @@ jobs:
           applicationbuilddefaulttag: "${{ github.sha }}"
           applicationbuildimagerepository: "${{ env.APP_LANDING_ZONE}}/application"
           applicationbuilddockerfile: "Dockerfile"
-          applicationbuilddockerfileargs: "AZURE_PYPI_FEED=${{ secrets.AZURE_PYPI_FEED }}/simple,AZURE_PYPI_PASSWORD=${{ secrets.AZURE_PYPI_PASSWORD }}"
-          
+          applicationbuilddockerfileargs: "FLAG_SMITH_ENVIRONMENT_KEY=${{ secrets.FLAG_SMITH_ENVIRONMENT_KEY }},AZURE_PYPI_FEED=${{ secrets.AZURE_PYPI_FEED }}/simple,AZURE_PYPI_PASSWORD=${{ secrets.AZURE_PYPI_PASSWORD }}"
