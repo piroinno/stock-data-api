@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: flagsmith
+Version: 3.2.0
+Summary: Flagsmith Python SDK
+License: BSD3
+Keywords: feature,flag,flagsmith,remote,config
+Author: Flagsmith
+Author-email: support@flagsmith.com
+Requires-Python: >=3.7.0,<4
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: flagsmith-flag-engine (>=2.3.0,<3.0.0)
+Requires-Dist: requests (>=2.27.1,<3.0.0)
+Requires-Dist: requests-futures (>=1.0.0,<2.0.0)
+Project-URL: Documentation, https://docs.flagsmith.com
+Description-Content-Type: text/markdown
+
+<img width="100%" src="https://github.com/Flagsmith/flagsmith/raw/main/static-files/hero.png"/>
+
+# Flagsmith Python SDK
+
+> Flagsmith allows you to manage feature flags and remote config across multiple projects, environments and organisations.
+
+The SDK for Python applications for [https://www.flagsmith.com/](https://www.flagsmith.com/).
+
+## Adding to your project
+
+For full documentation visit [https://docs.flagsmith.com/clients/server-side](https://docs.flagsmith.com/clients/server-side).
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/kyle-ssg/c36a03aebe492e45cbd3eefb21cb0486) for details on our code of conduct, and the process for submitting pull requests
+
+## Getting Help
+
+If you encounter a bug or feature request we would like to hear about it. Before you submit an issue please search existing issues in order to prevent duplicates.
+
+## Get in touch
+
+If you have any questions about our projects you can email <a href="mailto:support@flagsmith.com">support@flagsmith.com</a>.
+
+## Useful links
+
+[Website](https://www.flagsmith.com/)
+
+[Documentation](https://docs.flagsmith.com/)
+
