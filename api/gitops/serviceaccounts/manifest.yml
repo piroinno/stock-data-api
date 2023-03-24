@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sd-api-service
+  namespace: sd-api
+  annotations:
+    azure.workload.identity/client-id: a7aa3276-6358-49b5-b87c-9c4b4a958081
+  labels:
+    azure.workload.identity/use: "true"
+automountServiceAccountToken: true
+---

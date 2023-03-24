@@ -6,7 +6,7 @@ metadata:
 spec:
   provider: azure
   secretObjects:
-  - secretName: github-auth
+  - secretName: backend-auth
     type: Opaque
     data:
     - objectName: STOCK-DATA-STORAGE-ACCOUNT-NAME
@@ -18,8 +18,8 @@ spec:
   parameters:
     usePodIdentity: "false"
     useVMManagedIdentity: "false"          
-    clientID: "d32c56d3-c158-43a8-b600-72384cba3b88"
-    keyvaultName: "orye-kv-sd-api"
+    clientID: "a7aa3276-6358-49b5-b87c-9c4b4a958081"
+    keyvaultName: "dehw-kv-sd-api"
     tenantId: "859e9d09-9fe3-4451-9029-35d7fb1f2e59"   
     objects:  |
         array:

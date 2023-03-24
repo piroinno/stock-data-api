@@ -45,7 +45,7 @@ spec:
       serviceAccountName: sd-api-service
       containers:
         - name: sd-api
-          image: psxycrsharedacrstockdatamgnt.azurecr.io/environments/application/api:latest
+          image: #{{IMAGE}}#
           resources:
             requests:
               memory: "1024M"
@@ -58,21 +58,21 @@ spec:
             - name: STOCK_DATA_STORAGE_ACCOUNT_NAME
               valueFrom:
                 secretKeyRef:
-                  name: github-auth
+                  name: backend-auth
                   key: STOCK_DATA_STORAGE_ACCOUNT_NAME
             - name: FLAG_SMITH_ENVIRONMENT_KEY
               valueFrom:
                 secretKeyRef:
-                  name: github-auth
+                  name: backend-auth
                   key: FLAG_SMITH_ENVIRONMENT_KEY
             - name: STOCK_DATA_STORAGE_FILE_SYSTEM
               valueFrom:
                 secretKeyRef:
-                  name: github-auth
+                  name: backend-auth
                   key: STOCK_DATA_STORAGE_FILE_SYSTEM
           volumeMounts:
             - name: kv-secret-store
-              mountPath: "/mnt/github-auth"
+              mountPath: "/mnt/backend-auth"
               readOnly: true
       tolerations:
         - key: "kubernetes.azure.com/scalesetpriority"
