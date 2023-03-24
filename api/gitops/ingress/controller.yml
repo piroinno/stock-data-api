@@ -32,21 +32,8 @@ spec:
     - hosts:
         - "#{{APP_DOMAIN}}#"
       secretName: "#{{APP_CERT_SECRET}}#"
-    - hosts:
-        - "#{{APP_WWW_DOMAIN}}#"
-      secretName: "#{{APP_CERT_WWW_SECRET}}#"
   rules:
     - host: "#{{APP_DOMAIN}}#"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: sd-api-svc
-                port:
-                  number: 80
-    - host: "#{{APP_WWW_DOMAIN}}#"
       http:
         paths:
           - path: /
