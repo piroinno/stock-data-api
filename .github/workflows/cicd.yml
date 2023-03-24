@@ -107,7 +107,7 @@ jobs:
       - name: Deploy manifest
         uses: piroinno/stock-data-app-automation/deploy/manifest/@init
         with:
-          image: "${{ env.APP_LANDING_ZONE}}/application/${{ matrix.app }}:${{ github.sha }}"
+          image: "${{ secrets.ACR_LOGIN_SERVER }}/${{ env.APP_LANDING_ZONE}}/application/${{ matrix.app }}:${{ github.sha }}"
           mainbranch: "main"
           statebranch: "state"
           prmessage: "PR: ${{ github.event.pull_request.title }}"
