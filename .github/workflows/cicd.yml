@@ -97,7 +97,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [prepare, test]
+    needs: [prepare, test, build]
     if: ${{ github.ref == 'refs/heads/main' }}
     strategy:
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
