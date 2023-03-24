@@ -1,0 +1,39 @@
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: azure-sync
+  namespace: sd-api
+spec:
+  provider: azure
+  secretObjects:
+  - secretName: backend-auth
+    type: Opaque
+    data:
+    - objectName: DATABASE-URL
+      key: DATABASE_URL
+    - objectName: STOCK-DATA-STORAGE-ACCOUNT-NAME
+      key: STOCK_DATA_STORAGE_ACCOUNT_NAME
+    - objectName: STOCK-DATA-STORAGE-FILE-SYSTEM
+      key: STOCK_DATA_STORAGE_FILE_SYSTEM
+    - objectName: FLAG-SMITH-ENVIRONMENT-KEY
+      key: FLAG_SMITH_ENVIRONMENT_KEY
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "false"          
+    clientID: "a7aa3276-6358-49b5-b87c-9c4b4a958081"
+    keyvaultName: "dehw-kv-sd-api"
+    tenantId: "859e9d09-9fe3-4451-9029-35d7fb1f2e59"   
+    objects:  |
+        array:
+          - |
+            objectName: DATABASE-URL
+            objectType: secret
+          - |
+            objectName: STOCK-DATA-STORAGE-ACCOUNT-NAME
+            objectType: secret 
+          - |
+            objectName: STOCK-DATA-STORAGE-FILE-SYSTEM
+            objectType: secret 
+          - |
+            objectName: FLAG-SMITH-ENVIRONMENT-KEY
+            objectType: secret
