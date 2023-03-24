@@ -106,6 +106,7 @@ jobs:
       - name: Set environment variables
         shell: pwsh
         run: |
+          "BRANCH=${{ github.ref }}" -replace "refs/heads/", "" >> $env:GITHUB_ENV
           if("${{ env.ENVIRONMENT }}" -eq "prd"){
             "APP_DOMAIN=${{ secrets.APP_DOMAIN_PRD }}" >> $env:GITHUB_ENV
             "APP_CERT_SECRET=${{ secrets.APP_CERT_SECRET_PRD }}" >> $env:GITHUB_ENV
@@ -119,7 +120,7 @@ jobs:
       - name: Deploy manifest
         uses: piroinno/stock-data-app-automation/deploy/manifest/@init
         with:
-          mainbranch: "${GITHUB_REF##*/}"
+          mainbranch: "${{ env.BRANCH }}"
           statebranch: "state.${{ env.ENVIRONMENT }}"
           prmessage: "PR: ${{ github.event.pull_request.title }}"
           approotpath: ${{ env.APP_LANDING_ZONE_ROOT_PATH }}/${{ matrix.app }}
