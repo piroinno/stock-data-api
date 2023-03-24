@@ -22,7 +22,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-    cert-manager.io/issuer: "#{{CERT_ISSUER}}#"
+    cert-manager.io/issuer: "'https://acme-v02.api.letsencrypt.org/directory'"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/affinity-mode: "persistent"
@@ -30,13 +30,13 @@ metadata:
 spec:
   tls:
     - hosts:
-        - "#{{APP_DOMAIN}}#"
-      secretName: "#{{APP_CERT_SECRET}}#"
+        - "'stockdata-dev.piroinno.com'"
+      secretName: "''"
     - hosts:
         - "#{{APP_WWW_DOMAIN}}#"
       secretName: "#{{APP_CERT_WWW_SECRET}}#"
   rules:
-    - host: "#{{APP_DOMAIN}}#"
+    - host: "'stockdata-dev.piroinno.com'"
       http:
         paths:
           - path: /
