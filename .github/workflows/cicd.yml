@@ -111,3 +111,4 @@ jobs:
           mainbranch: "main"
           statebranch: "state"
           prmessage: "PR: ${{ github.event.pull_request.title }}"
+          approotpath: ${{ env.APP_LANDING_ZONE_ROOT_PATH }}/${{ matrix.app }}
