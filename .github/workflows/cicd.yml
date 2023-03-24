@@ -104,6 +104,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set environment variables
+        shell: pwsh
         run: |
           if("${{ env.ENVIRONMENT }}" -eq "prd"){
             "APP_DOMAIN=${{ secrets.APP_DOMAIN_PRD }}" >> $env:GITHUB_ENV
