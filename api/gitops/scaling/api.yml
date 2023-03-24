@@ -45,7 +45,7 @@ spec:
       serviceAccountName: sd-api-service
       containers:
         - name: sd-api
-          image: #{{IMAGE}}#
+          image: psxycrsharedacrstockdatamgnt.azurecr.io/environments/application/api:1a1a94ed88ba57df453955ce1cfa34cc8f6a2c37
           command: ["python"]
           args: ["-m", "uvicorn", "main:app", "--host", "localhost", "--port", "80"]
           resources:
