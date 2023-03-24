@@ -3,10 +3,10 @@ run-name: ${{ github.event.repository.updated_at}}_${{ github.run_number }}_${{ 
 on:
   workflow_dispatch:
     branches:
-      - '**'
+      - "**"
   push:
     branches:
-      - '**'
+      - "**"
   pull_request:
     branches:
       - dev
@@ -20,9 +20,9 @@ env:
   ARM_ACR_CLIENT_ID: ${{ secrets.ARM_ACR_CLIENT_ID }}
   ARM_ACR_CLIENT_SECRET: ${{ secrets.ARM_ACR_CLIENT_SECRET }}
   ARM_ACR_SUBSCRIPTION_ID: ${{ secrets.ARM_ACR_SUBSCRIPTION_ID }}
-  APP_LANDING_ZONE: 'environments'
+  APP_LANDING_ZONE: "environments"
   APP_LANDING_ZONE_ROOT_PATH: ${{ github.workspace }}
-  APP_NAMES: 'api'
+  APP_NAMES: "api"
   APP_AUTO_WORKING_FOLDER: "./"
   APP_AUTO_WORKING_PATH: ${{ github.workspace }}
   ENVIRONMENT: ${{ fromJSON('["dev", "prd"]')[github.ref == 'refs/heads/main'] }}
@@ -105,7 +105,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Set environment variables
         run: |
-          if($ENVIRONMENT -eq "prd"){
+          if(${{ env.ENVIRONMENT }}" -eq "prd"){
             "APP_DOMAIN=${{ secrets.APP_DOMAIN_PRD }}" >> $env:GITHUB_ENV
             "APP_CERT_SECRET=${{ secrets.APP_CERT_SECRET_PRD }}" >> $env:GITHUB_ENV
             "CERT_ISSUER=${{ secrets.CERT_ISSUER_PRD }}" >> $env:GITHUB_ENV
@@ -114,11 +114,11 @@ jobs:
             "APP_CERT_SECRET=${{ secrets.APP_CERT_SECRET_DEV }}" >> $env:GITHUB_ENV
             "CERT_ISSUER=${{ secrets.CERT_ISSUER_DEV }}" >> $env:GITHUB_ENV
           }
-        
+
       - name: Deploy manifest
         uses: piroinno/stock-data-app-automation/deploy/manifest/@init
         with:
-          mainbranch: ${GITHUB_REF##*/}
+          mainbranch: "${GITHUB_REF##*/}"
           statebranch: "state.${{ env.ENVIRONMENT }}"
           prmessage: "PR: ${{ github.event.pull_request.title }}"
           approotpath: ${{ env.APP_LANDING_ZONE_ROOT_PATH }}/${{ matrix.app }}
