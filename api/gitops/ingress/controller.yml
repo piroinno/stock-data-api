@@ -30,23 +30,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - "'stockdata-dev.piroinno.com'"
-      secretName: "''"
-    - hosts:
-        - "#{{APP_WWW_DOMAIN}}#"
-      secretName: "#{{APP_CERT_WWW_SECRET}}#"
+        - "stockdata-dev.piroinno.com"
+      secretName: "stockdata-dev.piroinno.com"
   rules:
-    - host: "'stockdata-dev.piroinno.com'"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: sd-api-svc
-                port:
-                  number: 80
-    - host: "#{{APP_WWW_DOMAIN}}#"
+    - host: "stockdata-dev.piroinno.com"
       http:
         paths:
           - path: /
