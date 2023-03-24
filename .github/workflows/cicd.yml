@@ -81,7 +81,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build docker image
-        uses: piroinno/stock-data-app-automation/build/docker/@init
+        uses: piroinno/stock-data-app-automation/build/docker/@v1.4.0
         with:
           appfolder: ${{ matrix.app }}
           applicationbuildphase: "build"
@@ -118,7 +118,7 @@ jobs:
           }
 
       - name: Deploy manifest
-        uses: piroinno/stock-data-app-automation/deploy/manifest/@init
+        uses: piroinno/stock-data-app-automation/deploy/manifest/@v1.4.0
         with:
           mainbranch: "${{ env.BRANCH }}"
           statebranch: "state.${{ env.ENVIRONMENT }}"
