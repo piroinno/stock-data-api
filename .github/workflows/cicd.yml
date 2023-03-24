@@ -64,7 +64,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test the application
-        uses: piroinno/stock-data-app-automation/test/poetry/@v1.2.0
+        uses: piroinno/stock-data-app-automation/test/poetry/@init
         with:
           packagefeed: ${{ secrets.AZURE_PYPI_FEED }}
           packagefeedpassword: ${{ secrets.AZURE_PYPI_PASSWORD }}
@@ -81,7 +81,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build docker image
-        uses: piroinno/stock-data-app-automation/build/docker/@v1.2.0
+        uses: piroinno/stock-data-app-automation/build/docker/@init
         with:
           appfolder: ${{ matrix.app }}
           applicationbuildphase: "build"
@@ -103,11 +103,23 @@ jobs:
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v3
+      - name: Set environment variables
+        run: |
+          if($ENVIRONMENT -eq "prd"){
+            "APP_DOMAIN=${{ secrets.APP_DOMAIN_PRD }}" >> $env:GITHUB_ENV
+            "APP_CERT_SECRET=${{ secrets.APP_CERT_SECRET_PRD }}" >> $env:GITHUB_ENV
+            "CERT_ISSUER=${{ secrets.CERT_ISSUER_PRD }}" >> $env:GITHUB_ENV
+          }else{
+            "APP_DOMAIN=${{ secrets.APP_DOMAIN_DEV }}" >> $env:GITHUB_ENV
+            "APP_CERT_SECRET=${{ secrets.APP_CERT_SECRET_DEV }}" >> $env:GITHUB_ENV
+            "CERT_ISSUER=${{ secrets.CERT_ISSUER_DEV }}" >> $env:GITHUB_ENV
+          }
+        
       - name: Deploy manifest
-        uses: piroinno/stock-data-app-automation/deploy/manifest/@v1.2.0
+        uses: piroinno/stock-data-app-automation/deploy/manifest/@init
         with:
-          image: "${{ secrets.ACR_LOGIN_SERVER }}/${{ env.APP_LANDING_ZONE}}/application/${{ matrix.app }}:prd"
           mainbranch: ${GITHUB_REF##*/}
           statebranch: "state.${{ env.ENVIRONMENT }}"
           prmessage: "PR: ${{ github.event.pull_request.title }}"
           approotpath: ${{ env.APP_LANDING_ZONE_ROOT_PATH }}/${{ matrix.app }}
+          substitute: "IMAGE='${{ secrets.ACR_LOGIN_SERVER }}/${{ env.APP_LANDING_ZONE}}/application/${{ matrix.app }}:${{ env.ENVIRONMENT }}',CERT_ISSUER='${{ env.CERT_ISSUER}}',APP_DOMAIN='${{ env.APP_DOMAIN}}',APP_CERT_SECRET='${{ secrets.APP_CERT_SECRET}}'"

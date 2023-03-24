@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-certs
+  namespace: sd-api
+spec:
+  acme:
+    server: #{{CERT_MANAGER_SERVER}}
+    email: notify@piroinno.io
+    privateKeySecretRef:
+      name: letsencrypt-certs
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
+---
