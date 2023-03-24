@@ -108,6 +108,6 @@ jobs:
         uses: piroinno/stock-data-app-automation/deploy/manifest/@init
         with:
           image: "${{ env.APP_LANDING_ZONE}}/application/${{ matrix.app }}:${{ github.sha }}"
-          mainbranch: ${{ github.ref.split('/')[2] }}
+          mainbranch: "main"
           statebranch: "state"
           prmessage: "PR: ${{ github.event.pull_request.title }}"
