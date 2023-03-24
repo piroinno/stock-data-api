@@ -46,6 +46,8 @@ spec:
       containers:
         - name: sd-api
           image: #{{IMAGE}}#
+          command: ["python"]
+          args: ["-m", "uvicorn", "main:app", "--host", "localhost", "--port", "80"]
           resources:
             requests:
               memory: "1024M"
@@ -55,6 +57,11 @@ spec:
               cpu: "1"
           imagePullPolicy: Always
           env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: backend-auth
+                  key: DATABASE_URL
             - name: STOCK_DATA_STORAGE_ACCOUNT_NAME
               valueFrom:
                 secretKeyRef:
