@@ -31,7 +31,7 @@ spec:
   tls:
     - hosts:
         - "stockdata-dev.piroinno.com"
-      secretName: "letsencrypt-prod"
+      secretName: "letsencrypt-certs"
   rules:
     - host: "stockdata-dev.piroinno.com"
       http:
