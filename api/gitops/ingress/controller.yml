@@ -8,7 +8,7 @@ spec:
     - port: 80
       name: tcp-80
       protocol: TCP
-      targetPort: 80
+      targetPort: 5000
   selector:
     app: sd-api
 ---
@@ -22,9 +22,9 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-    cert-manager.io/issuer: "'https://acme-v02.api.letsencrypt.org/directory'"
+    cert-manager.io/issuer: "https://acme-v02.api.letsencrypt.org/directory"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
     nginx.ingress.kubernetes.io/affinity-mode: "persistent"
     nginx.ingress.kubernetes.io/affinity: "cookie"
 spec:
