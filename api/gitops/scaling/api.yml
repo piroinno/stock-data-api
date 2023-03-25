@@ -46,8 +46,6 @@ spec:
       containers:
         - name: sd-api
           image: psxycrsharedacrstockdatamgnt.azurecr.io/environments/application/api:dev
-          command: ["python"]
-          args: ["-m", "uvicorn", "main:app", "--host", "localhost", "--port", "80"]
           resources:
             requests:
               memory: "1024M"
