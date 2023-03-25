@@ -2,6 +2,7 @@ import datetime
 import logging
 import pytz
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from flagsmith import Flagsmith
 import os, uuid, sys
 from azure.identity import DefaultAzureCredential
@@ -18,8 +19,17 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 
 
+@app.get("/", include_in_schema=False)
+def docs_redirect():
+    return RedirectResponse(url='/docs')
+
+@app.exception_handler(404)
+def custom_404_handler(_, __):
+    return docs_redirect()
+
 @app.get("/eod/ticker/{ticker}")
 def get_ticker(ticker: str):
+    # Flag to turn this endpoint / path off in the given environment
     if not flags.is_feature_enabled("ticker_api_enabled"):
         return {"error": "Ticker API is not enabled"}
     return {"ticker": get_eod_ticker(ticker)}
@@ -27,6 +37,7 @@ def get_ticker(ticker: str):
 
 @app.get("/eod/ticker/{ticker}/delta/{days}")
 def get_ticker_delta(ticker: str, days: int):
+    # Flag to turn this endpoint / path off in the given environment
     if not flags.is_feature_enabled("delta_api_enabled"):
         return {"error": "Delta API is not enabled"}
     return {"ticker": ticker, "days": days}
