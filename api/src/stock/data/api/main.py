@@ -21,6 +21,7 @@ app = FastAPI()
 
 @app.get("/", include_in_schema=False)
 def docs_redirect():
+    # Redirect to the openAPI docs page if endpoint not found (404)
     return RedirectResponse(url='/docs')
 
 @app.exception_handler(404)
