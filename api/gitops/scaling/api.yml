@@ -18,7 +18,7 @@ spec:
       serviceAccountName: sd-api-service
       containers:
         - name: sd-api
-          image: #{{IMAGE}}#
+          image: psxycrsharedacrstockdatamgnt.azurecr.io/environments/application/api:dev
           resources:
             requests:
               memory: "1024M"
