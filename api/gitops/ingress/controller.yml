@@ -30,10 +30,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - "stockdata-dev.piroinno.com"
+        - "#{{APP_DOMAIN}}#"
       secretName: "letsencrypt-certs"
   rules:
-    - host: "stockdata-dev.piroinno.com"
+    - host: "#{{APP_DOMAIN}}#"
       http:
         paths:
           - path: /
