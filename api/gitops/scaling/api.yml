@@ -4,6 +4,7 @@ metadata:
   name: sd-api-deployment
   namespace: sd-api
   labels:
+    azure.workload.identity/use: "true"
     app: sd-api
 spec:
   replicas: 2
