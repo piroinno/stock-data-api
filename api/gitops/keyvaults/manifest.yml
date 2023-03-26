@@ -21,7 +21,7 @@ spec:
     usePodIdentity: "false"
     useVMManagedIdentity: "false"          
     clientID: "a7aa3276-6358-49b5-b87c-9c4b4a958081"
-    keyvaultName: "#{{API_KV}}#"
+    keyvaultName: ""
     tenantId: "859e9d09-9fe3-4451-9029-35d7fb1f2e59"   
     objects:  |
         array:
