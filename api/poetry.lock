@@ -1145,23 +1145,24 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyam
 
 [[package]]
 name = "stock-data-model"
-version = "0.1.19"
+version = "0.1.27"
 description = "stock.data.model"
 category = "main"
 optional = false
 python-versions = ">=3.11,<4.0"
 files = [
-    {file = "stock_data_model-0.1.19-py3-none-any.whl", hash = "sha256:fbca36411157df33c7e768195ba7babaadcc52d465002219c5c5be36d0bd9ea4"},
-    {file = "stock_data_model-0.1.19.tar.gz", hash = "sha256:8da33834c999e3e2e0d78e038dbaac78ab88cf50a7585c83f7282883a8eacdf0"},
+    {file = "stock_data_model-0.1.27-py3-none-any.whl", hash = "sha256:d0953276951f04345cf467b1834bd50a1eb2a306e2833197f516983f2640e440"},
 ]
 
 [package.dependencies]
 alembic = ">=1.10.2,<2.0.0"
+flake8 = ">=6.0.0,<7.0.0"
 greenlet = ">=2.0.2,<3.0.0"
 Mako = ">=1.2.4,<2.0.0"
 MarkupSafe = ">=2.1.2,<3.0.0"
 psycopg2 = ">=2.9.5,<3.0.0"
 pydantic = "1.10.6"
+pytest = ">=7.2.2,<8.0.0"
 SQLAlchemy = ">=2.0.5.post1,<3.0.0"
 typing_extensions = ">=4.5.0,<5.0.0"
 
