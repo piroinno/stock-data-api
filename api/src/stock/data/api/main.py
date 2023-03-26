@@ -79,5 +79,12 @@ def get_eod_ticker(ticker: str):
     file_system_client = get_data_lake_file_system_client()
     directory_client = file_system_client.get_directory_client(".")
     file_client = directory_client.get_file_client(file_name)
-    file = file_client.download_file()
-    return file.readall()
+    try:
+        file_client.get_file_properties()
+        file = file_client.download_file()
+        return file.readall()
+    except Exception as e:
+        logger.warn("Error getting EOD data for file: {}".format(file_name))
+        return None
+    
+    
