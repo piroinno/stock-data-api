@@ -13,6 +13,7 @@ spec:
   template:
     metadata:
       labels:
+        azure.workload.identity/use: "true"
         app: sd-api
     spec:
       serviceAccountName: sd-api-service
