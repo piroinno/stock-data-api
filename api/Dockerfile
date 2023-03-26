@@ -44,5 +44,6 @@ RUN apk update && \
     libpq-dev
 
 COPY ./src/stock/data/api/*py /app/
+COPY ./src/stock/data/api/*.pem /app/
 
 CMD [ "poetry", "run", "python", "-m", "uvicorn", "main:app", "--host=0.0.0.0", "--port", "5000"]
