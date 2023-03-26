@@ -119,4 +119,4 @@ jobs:
           statebranch: "state.${{ env.ENVIRONMENT }}"
           prmessage: "PR: ${{ github.event.pull_request.title }}"
           approotpath: ${{ env.APP_LANDING_ZONE_ROOT_PATH }}/${{ matrix.app }}
-          substituteargs: "API_KV=${{ env.API_KV }},IMAGE=${{ secrets.ACR_LOGIN_SERVER }}/${{ env.APP_LANDING_ZONE }}/application/${{ matrix.app }}:${{ env.ENVIRONMENT }},APP_DOMAIN=${{ env.APP_DOMAIN}}"
+          substituteargs: "API_KV=${{ env.APP_KV }},IMAGE=${{ secrets.ACR_LOGIN_SERVER }}/${{ env.APP_LANDING_ZONE }}/application/${{ matrix.app }}:${{ env.ENVIRONMENT }},APP_DOMAIN=${{ env.APP_DOMAIN}}"
