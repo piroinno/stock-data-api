@@ -10,7 +10,6 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      azure.workload.identity/use: "true"
       app: sd-api
   template:
     metadata:
