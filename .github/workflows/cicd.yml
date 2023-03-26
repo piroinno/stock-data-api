@@ -4,9 +4,6 @@ on:
   workflow_dispatch:
     branches:
       - "**"
-  push:
-    branches:
-      - "**"
   pull_request:
     branches:
       - dev
@@ -64,7 +61,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test the application
-        uses: piroinno/stock-data-app-automation/test/poetry/@init
+        uses: piroinno/stock-data-app-automation/test/poetry/@v1.4.0
         with:
           packagefeed: ${{ secrets.AZURE_PYPI_FEED }}
           packagefeedpassword: ${{ secrets.AZURE_PYPI_PASSWORD }}
@@ -109,12 +106,10 @@ jobs:
           "BRANCH=${{ github.ref }}" -replace "refs/heads/", "" >> $env:GITHUB_ENV
           if("${{ env.ENVIRONMENT }}" -eq "prd"){
             "APP_DOMAIN=${{ secrets.APP_DOMAIN_PRD }}" >> $env:GITHUB_ENV
-            "APP_CERT_SECRET=${{ secrets.APP_CERT_SECRET_PRD }}" >> $env:GITHUB_ENV
-            "CERT_ISSUER=${{ secrets.CERT_ISSUER_PRD }}" >> $env:GITHUB_ENV
+            "APP_KV=${{ secrets.API_KV_PRD }}" >> $env:GITHUB_ENV
           }else{
             "APP_DOMAIN=${{ secrets.APP_DOMAIN_DEV }}" >> $env:GITHUB_ENV
-            "APP_CERT_SECRET=${{ secrets.APP_CERT_SECRET_DEV }}" >> $env:GITHUB_ENV
-            "CERT_ISSUER=${{ secrets.CERT_ISSUER_DEV }}" >> $env:GITHUB_ENV
+            "APP_KV=${{ secrets.API_KV_DEV }}" >> $env:GITHUB_ENV
           }
 
       - name: Deploy manifest
@@ -124,4 +119,4 @@ jobs:
           statebranch: "state.${{ env.ENVIRONMENT }}"
           prmessage: "PR: ${{ github.event.pull_request.title }}"
           approotpath: ${{ env.APP_LANDING_ZONE_ROOT_PATH }}/${{ matrix.app }}
-          substituteargs: "IMAGE=${{ secrets.ACR_LOGIN_SERVER }}/${{ env.APP_LANDING_ZONE }}/application/${{ matrix.app }}:${{ env.ENVIRONMENT }},CERT_ISSUER=${{ env.CERT_ISSUER}},APP_DOMAIN=${{ env.APP_DOMAIN}},APP_CERT_SECRET=${{ secrets.APP_CERT_SECRET}}"
+          substituteargs: "API_KV_DEV=${{ env.API_KV_DEV }},IMAGE=${{ secrets.ACR_LOGIN_SERVER }}/${{ env.APP_LANDING_ZONE }}/application/${{ matrix.app }}:${{ env.ENVIRONMENT }},APP_DOMAIN=${{ env.APP_DOMAIN}}"

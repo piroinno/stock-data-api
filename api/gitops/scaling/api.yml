@@ -6,7 +6,7 @@ metadata:
   labels:
     app: sd-api
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: sd-api
@@ -18,7 +18,7 @@ spec:
       serviceAccountName: sd-api-service
       containers:
         - name: sd-api
-          image: psxycrsharedacrstockdatamgnt.azurecr.io/environments/application/api:dev
+          image: #{{IMAGE}}#
           resources:
             requests:
               memory: "1024M"
