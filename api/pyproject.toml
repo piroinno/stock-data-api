@@ -12,7 +12,7 @@ azure-identity = "1.12.0"
 azure-storage-file-datalake = "12.10.1"
 fastapi = "0.94.1"
 psycopg2 = "2.9.5"
-pydantic = "1.10.6"
+pydantic = {version = "1.10.6", extras = ["dotenv"]}
 pytz = "2022.7.1"
 SQLAlchemy = "2.0.6"
 uvicorn = "0.21.0"
@@ -20,6 +20,8 @@ flagsmith = "3.2.0"
 pytest = "7.2.2"
 stock-data-model = "^0.1.15"
 flake8 = "^6.0.0"
+secure = "^0.3.0"
+python-dotenv = "^1.0.0"
 
 [[tool.poetry.source]]
 name = "pypifeed"
