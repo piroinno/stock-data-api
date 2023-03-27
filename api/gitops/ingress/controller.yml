@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: sd-api-service
+  name: sd-api-svc
   namespace: sd-api
 spec:
   ports:
     - port: 80
       name: tcp-80
       protocol: TCP
-      targetPort: 80
+      targetPort: 5000
   selector:
     app: sd-api
 ---
@@ -22,31 +22,18 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-    cert-manager.io/issuer: "#{{CERT_ISSUER}}#"
+    cert-manager.io/issuer: "https://acme-v02.api.letsencrypt.org/directory"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
     nginx.ingress.kubernetes.io/affinity-mode: "persistent"
     nginx.ingress.kubernetes.io/affinity: "cookie"
 spec:
   tls:
     - hosts:
         - "#{{APP_DOMAIN}}#"
-      secretName: "#{{APP_CERT_SECRET}}#"
-    - hosts:
-        - "#{{APP_WWW_DOMAIN}}#"
-      secretName: "#{{APP_CERT_WWW_SECRET}}#"
+      secretName: "letsencrypt-certs"
   rules:
     - host: "#{{APP_DOMAIN}}#"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: sd-api-svc
-                port:
-                  number: 80
-    - host: "#{{APP_WWW_DOMAIN}}#"
       http:
         paths:
           - path: /

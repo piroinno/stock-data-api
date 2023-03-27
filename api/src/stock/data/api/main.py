@@ -2,6 +2,7 @@ import datetime
 import logging
 import pytz
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from flagsmith import Flagsmith
 import os, uuid, sys
 from azure.identity import DefaultAzureCredential
@@ -18,8 +19,18 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 
 
+@app.get("/", include_in_schema=False)
+def docs_redirect():
+    # Redirect to the openAPI docs page if endpoint not found (404)
+    return RedirectResponse(url='/docs')
+
+@app.exception_handler(404)
+def custom_404_handler(_, __):
+    return docs_redirect()
+
 @app.get("/eod/ticker/{ticker}")
 def get_ticker(ticker: str):
+    # Flag to turn this endpoint / path off in the given environment
     if not flags.is_feature_enabled("ticker_api_enabled"):
         return {"error": "Ticker API is not enabled"}
     return {"ticker": get_eod_ticker(ticker)}
@@ -27,6 +38,7 @@ def get_ticker(ticker: str):
 
 @app.get("/eod/ticker/{ticker}/delta/{days}")
 def get_ticker_delta(ticker: str, days: int):
+    # Flag to turn this endpoint / path off in the given environment
     if not flags.is_feature_enabled("delta_api_enabled"):
         return {"error": "Delta API is not enabled"}
     return {"ticker": ticker, "days": days}
@@ -67,5 +79,12 @@ def get_eod_ticker(ticker: str):
     file_system_client = get_data_lake_file_system_client()
     directory_client = file_system_client.get_directory_client(".")
     file_client = directory_client.get_file_client(file_name)
-    file = file_client.download_file()
-    return file.readall()
+    try:
+        file_client.get_file_properties()
+        file = file_client.download_file()
+        return file.readall()
+    except Exception as e:
+        logger.warn("Error getting EOD data for file: {}".format(file_name))
+        return None
+    
+    
