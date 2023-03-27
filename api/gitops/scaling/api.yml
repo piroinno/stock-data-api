@@ -30,6 +30,21 @@ spec:
               cpu: "1"
           imagePullPolicy: Always
           env:
+            - name: AUTH0_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: backend-auth
+                  key: AUTH0_DOMAIN
+            - name: AUTH0_AUDIENCE
+              valueFrom:
+                secretKeyRef:
+                  name: backend-auth
+                  key: AUTH0_AUDIENCE
+            - name: CLIENT_ORIGIN_URL
+              valueFrom:
+                secretKeyRef:
+                  name: backend-auth
+                  key: CLIENT_ORIGIN_URL
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
