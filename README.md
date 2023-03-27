@@ -1,13 +1,13 @@
 # Stock Data API
 
 > NOTICE: This is purly development code. Please see my further comments here: NOTICE.md 
-This API serves EDO stock data. and will serve historical price delta when completed.
+This API serves EoD stock data. and will serve historical price delta when completed.
 
 A temporary implementation - (I will decom it soon) is here https://stockdata-dev.piroinno.com/
 
 # Stack
 
-- FastAPI: Serves EOD data if given a ticker symbol 
+- FastAPI: Serves EoD data if given a ticker symbol 
   - stock-data-api code repo and buile workflows:  https://github.com/piroinno/stock-data-api
 - Data ingestion microservices: Written in Python, get data from a privider on daily schedule. The python controller creates batch jobs on an azure queue. The python worker services pickup essages from the queue, downloads the data into blob as defined in the message oayload.
   - stock-data-ingestor code repo and build workflows: https://github.com/piroinno/stock-data-ingestor
