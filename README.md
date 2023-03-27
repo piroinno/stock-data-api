@@ -8,11 +8,11 @@ A temporary implementation - (I will decom it soon) is here https://stockdata-de
 # Stack
 
 - FastAPI: Serves EoD data if given a ticker symbol 
-  - stock-data-api code repo and buile workflows:  https://github.com/piroinno/stock-data-api
-- Data ingestion microservices: Written in Python, get data from a privider on daily schedule. The python controller creates batch jobs on an azure queue. The python worker services pickup essages from the queue, downloads the data into blob as defined in the message oayload.
+  - stock-data-api code repo and build workflows:  https://github.com/piroinno/stock-data-api
+- Data ingestion microservices: Written in Python, get data from a provider on a daily schedule. The python controller creates batch jobs on an azure queue. The python worker services pickup messages from the queue, downloads the data into blob as defined in the message payload.
   - stock-data-ingestor code repo and build workflows: https://github.com/piroinno/stock-data-ingestor
 - AKS: the API and microservices are hosted on a secure AKS server within a hub and spoke vnet network
-- Flagsmith: This is a feature control tool which I used to disbale the historical analysis endpoint in the API in a given environment. Feature flags are great at preventing unintended feature breakout into enviromrnts like production.
+- Flagsmith: This is a feature control tool which I use to disbale the historical analysis endpoint in the API in a given environment. Feature flags are great at preventing unintended feature breakout into enviromrnts like production.
 
 ## Storage
 
@@ -22,7 +22,7 @@ A temporary implementation - (I will decom it soon) is here https://stockdata-de
 
 ## IaC / CICD Ochestration
 
-To keep things DRY, I used composite templates so tha I could reuse code and generally its better to have 1 place to make changes.
+To keep things DRY, I used composite templates to ensure code is reused and generally its better to have 1 place to make changes.
 
 I also used tags when possible to ensure workflows are pinned to a given snapshot in time and no tto day the dev or main branch.
 
