@@ -385,6 +385,18 @@ test-randomorder = ["pytest-randomly"]
 tox = ["tox"]
 
 [[package]]
+name = "dependencies"
+version = "7.7.0"
+description = "Constructor injection designed with OOP in mind."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "dependencies-7.7.0-py2.py3-none-any.whl", hash = "sha256:6a842068931258efc88b1faa7f08829b7e58271f4a097e2d06e766917909ad4f"},
+    {file = "dependencies-7.7.0.tar.gz", hash = "sha256:ae662ffe5726582705d26ae86977d0d616922100c38a211f0c27c765554fb026"},
+]
+
+[[package]]
 name = "fastapi"
 version = "0.94.1"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
@@ -1246,4 +1258,4 @@ standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "badb53f4c85984825ac48483bb8fed56ea420b7fae0e8765a2c9334a1f875bc7"
+content-hash = "53bc1e0aa157015c23392845980ebc56ea258103cf70a93840f7c5cb627b02d1"
