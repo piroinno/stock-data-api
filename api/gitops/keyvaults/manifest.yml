@@ -17,6 +17,12 @@ spec:
       key: STOCK_DATA_STORAGE_FILE_SYSTEM
     - objectName: FLAG-SMITH-ENVIRONMENT-KEY
       key: FLAG_SMITH_ENVIRONMENT_KEY
+    - objectName: AUTH0-DOMAIN
+      key: AUTH0_DOMAIN
+    - objectName: AUTH0-AUDIENCE
+      key: AUTH0_AUDIENCE
+    - objectName: CLIENT-ORIGIN-URL
+      key: CLIENT_ORIGIN_URL
   parameters:
     usePodIdentity: "false"
     useVMManagedIdentity: "false"          
@@ -36,4 +42,13 @@ spec:
             objectType: secret 
           - |
             objectName: FLAG-SMITH-ENVIRONMENT-KEY
+            objectType: secret
+          - |
+            objectName: AUTH0-DOMAIN
+            objectType: secret
+          - |
+            objectName: AUTH0-AUDIENCE
+            objectType: secret
+          - |
+            objectName: CLIENT-ORIGIN-URL
             objectType: secret
