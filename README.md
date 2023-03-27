@@ -24,16 +24,16 @@ A temporary implementation - (I will decom it soon) is here https://stockdata-de
 
 To keep things DRY, I used composite templates to ensure code is reused and generally its better to have 1 place to make changes.
 
-I also used tags when possible to ensure workflows are pinned to a given snapshot in time and no tto day the dev or main branch.
+I also used tags when possible to ensure workflows are pinned to a given snapshot in time and not to the dev or main branches.
 
 - Terraform was used to version and deploy infrastructure.
   - infra code repo and ochestration templates: https://github.com/piroinno/stock-data-infra-mngt, https://github.com/piroinno/stock-data-infra-tf-automation
 - CICD ochestration was implemented using 2 different patterns - DevOps and GitOps.
-  - application ochestration action templates: https://github.com/piroinno/stock-data-app-automation 
+  - Application ochestration action templates: https://github.com/piroinno/stock-data-app-automation 
   - DevOps: Build agents (both managed and self hosted) were used to test + build + deploy
-  - GitOps: BUild agents (both managed and self hosted) were used to build + test only. Deployment of the Application code and manifiests to the AKS cluster was implemented with flux
-    - FLux: Adter testing and building the application code, chnages to the dev and prd branches were merged into state.dev and state.prd via a PR.
-    - state.xxx: is the golden source of truth fo the AKS clusters. Any changes in these branches are automatically reconcilled by flux into AKS.
+  - GitOps: Build agents (both managed and self hosted) were used to build + test only. Deployment of the application code and manifiests to the AKS cluster was implemented with flux
+    - FLux: After testing and building the application code, changes to the dev and prd branches were merged into state.dev and state.prd via a PR.
+    - state.xxx: is the golden source of truth for the AKS clusters. Any changes in these branches are automatically reconcilled by flux into AKS.
 
 ## Task / Feature managent
 
