@@ -1,6 +1,6 @@
 # Stock Data API
 
-> NOTICE: This is purly development code. Please my further notices here: NOTICE.md 
+> NOTICE: This is purly development code. Please see my further comments here: NOTICE.md 
 This API serves EDO stock data. and will serve historical price delta when completed.
 
 A temporary implementation - (I will decom it soon) is here https://stockdata-dev.piroinno.com/
