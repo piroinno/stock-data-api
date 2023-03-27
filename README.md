@@ -3,7 +3,7 @@
 > NOTICE: This is purly development code. Please my further notices here: NOTICE.md 
 This API serves EDO stock data. and will serve historical price delta when completed.
 
-A very temporary implementation - (I will decom it soon) is here https://stockdata-dev.piroinno.com/
+A temporary implementation - (I will decom it soon) is here https://stockdata-dev.piroinno.com/
 
 # Stack
 
@@ -34,3 +34,7 @@ I also used tags when possible to ensure workflows are pinned to a given snapsho
   - GitOps: BUild agents (both managed and self hosted) were used to build + test only. Deployment of the Application code and manifiests to the AKS cluster was implemented with flux
     - FLux: Adter testing and building the application code, chnages to the dev and prd branches were merged into state.dev and state.prd via a PR.
     - state.xxx: is the golden source of truth fo the AKS clusters. Any changes in these branches are automatically reconcilled by flux into AKS.
+
+## Task / Feature managent
+
+I was able to keep track of most of the moving parts by creating tasks in this github project: https://github.com/users/piroinno/projects/1/views/1
