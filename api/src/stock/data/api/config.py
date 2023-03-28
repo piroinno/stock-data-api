@@ -13,7 +13,7 @@ class Settings(BaseSettings):
         return v
 
     class Config:
-        case_sensitive = True
+        case_sensitive = False
 
 
 settings = Settings()
