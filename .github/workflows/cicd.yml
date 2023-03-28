@@ -24,6 +24,9 @@ env:
   APP_AUTO_WORKING_PATH: ${{ github.workspace }}
   ENVIRONMENT: ${{ fromJSON('["dev", "prd"]')[github.ref == 'refs/heads/main'] }}
   IS_TESTING: true
+  CLIENT_ORIGIN_URL: http://localhost:4040
+  AUTH0_DOMAIN: test.uk.auth0.com
+  AUTH0_AUDIENCE: https://stockdata-dev.piroinno.com
 
 jobs:
   prepare:

@@ -7,14 +7,13 @@ class Settings(BaseSettings):
     client_origin_url: str
 
     @classmethod
-    #@validator("client_origin_url", "auth0_audience", "auth0_domain")
+    @validator("client_origin_url", "auth0_audience", "auth0_domain")
     def check_not_empty(cls, v):
-        #assert v != "", f"{v} is not defined"
+        assert v != "", f"{v} is not defined"
         return v
 
     class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
+        case_sensitive = False
 
 
 settings = Settings()
