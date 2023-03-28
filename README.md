@@ -1,6 +1,6 @@
 # Stock Data API
 
-> NOTICE: This is purly development code. Please see my further comments here: [NOTICE.md](NOTICE.md)
+> NOTICE: This is purely development code. Please see my further comments here: [NOTICE.md](NOTICE.md)
 
 This API serves EoD stock data. and will serve historical price delta when completed.
 
