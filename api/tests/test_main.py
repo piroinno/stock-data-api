@@ -17,7 +17,7 @@ from azure.identity import DefaultAzureCredential
 from stock.data.model import crud
 from stock.data.model import models
 from stock.data.model.database import  SessionLocal, engine, Base
-from src.stock.data.api.dependencies import validate_toke
+from src.stock.data.api.dependencies import validate_token
 
 def init_test_db():
     Base.metadata.create_all(bind=engine)
