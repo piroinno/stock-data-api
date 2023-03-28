@@ -5,6 +5,7 @@ from src.stock.data.api.main import (
     get_ticker,
     get_eod_ticker
 )
+from src.stock.data.api.config import settings
 
 import pytest
 import os
@@ -17,9 +18,12 @@ from stock.data.model import crud
 from stock.data.model import models
 from stock.data.model.database import  SessionLocal, engine, Base
 
-os.environ["CLIENT_ORIGIN_URL"] = "http://localhost:0000"
-os.environ["AUTH0_DOMAIN"] = "test.uk.auth0.com"
-os.environ["AUTH0_AUDIENCE"] = "https://app.app.com"
+@pytest.fixture(scope="session")
+def settings():
+    auth0_audience = "https://stock-data-api"
+    auth0_domain = "stock-data-api.us.auth0.com"
+    client_origin_url = "https://localhost:0000"
+    return settings
 
 def init_test_db():
     Base.metadata.create_all(bind=engine)
