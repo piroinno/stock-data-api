@@ -24,6 +24,9 @@ env:
   APP_AUTO_WORKING_PATH: ${{ github.workspace }}
   ENVIRONMENT: ${{ fromJSON('["dev", "prd"]')[github.ref == 'refs/heads/main'] }}
   IS_TESTING: true
+  CLIENT_ORIGIN_URL: http://localhost:4040
+  AUTH0_DOMAIN: test.uk.auth0.com
+  AUTH0_AUDIENCE: https://stockdata-dev.piroinno.com
 
 jobs:
   prepare:
@@ -61,14 +64,6 @@ jobs:
           - 5432:5432
     steps:
       - uses: actions/checkout@v3
-      - name: Create test vars
-        shell: pwsh
-        run: |
-          @(
-            "AUTH0_DOMAIN=auth0.com",
-            "AUTH0_AUDIENCE="https://auth0",
-            "CLIENT_ORIGIN_URL=auth0.com"
-          ) | Out-File -FilePath "$env:APP_AUTO_WORKING_PATH/environments/api/src/stock/data/api/.env" -Encoding utf8 -Append
       - name: Test the application
         uses: piroinno/stock-data-app-automation/test/poetry/@v1.4.0
         with:
