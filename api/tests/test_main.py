@@ -17,13 +17,7 @@ from azure.identity import DefaultAzureCredential
 from stock.data.model import crud
 from stock.data.model import models
 from stock.data.model.database import  SessionLocal, engine, Base
-
-@pytest.fixture(scope="session")
-def settings():
-    auth0_audience = "https://stock-data-api"
-    auth0_domain = "stock-data-api.us.auth0.com"
-    client_origin_url = "https://localhost:0000"
-    return settings
+from src.stock.data.api.dependencies import validate_toke
 
 def init_test_db():
     Base.metadata.create_all(bind=engine)
@@ -113,6 +107,12 @@ def add_exchanges(db: SessionLocal):
     )
     )
     
+@pytest.fixture
+def mock_validate_token(monkeypatch):
+    def mock_return(*args, **kwargs):
+        return "mocked"
+    monkeypatch.setattr("src.stock.data.api.main.validate_token", mock_return)
+
 @pytest.fixture
 def mock_get_data_lake_service_client(monkeypatch):
     def mock_return(*args, **kwargs):
