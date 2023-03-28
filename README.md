@@ -1,6 +1,7 @@
 # Stock Data API
 
-> NOTICE: This is purly development code. Please see my further comments here: NOTICE.md 
+> NOTICE: This is purly development code. Please see my further comments here: [NOTICE.md](NOTICE.md)
+
 This API serves EoD stock data. and will serve historical price delta when completed.
 
 A temporary implementation - (I will decom it soon) is here https://stockdata-dev.piroinno.com/
@@ -18,7 +19,7 @@ A temporary implementation - (I will decom it soon) is here https://stockdata-de
 
 - The simple data model used as part of the databse interaction is stored here, stock-data-model: https://github.com/piroinno/stock-data-model
 - Postgres Database: Using alembic the database is versioned, so changes to the schema can be rolled back or forward
-- ADLS to store the partitioned histoorical files: Data downloade is stored here
+- ADLS to store the partitioned historical data. Data downloaded is stored here
 
 ## IaC / CICD Ochestration
 
