@@ -52,6 +52,9 @@ jobs:
         image: postgres
         env:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          CLIENT_ORIGIN_URL: http://localhost:4040
+          AUTH0_DOMAIN: test.uk.auth0.com
+          AUTH0_AUDIENCE: https://stockdata-dev.piroinno.com
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
