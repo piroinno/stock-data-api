@@ -70,10 +70,6 @@ jobs:
           testdatabasepassword: ${{ secrets.POSTGRES_PASSWORD }}
           appfolder: ${{ matrix.app }}
           flagsmithenvironmentkey: ${{ secrets.FLAG_SMITH_ENVIRONMENT_KEY }}
-        env:
-          CLIENT_ORIGIN_URL: http://localhost:4040
-          AUTH0_DOMAIN: test.uk.auth0.com
-          AUTH0_AUDIENCE: https://stockdata-dev.piroinno.com
 
   build:
     runs-on: ubuntu-latest

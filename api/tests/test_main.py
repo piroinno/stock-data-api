@@ -7,6 +7,7 @@ from src.stock.data.api.main import (
 )
 
 import pytest
+import os
 from unittest.mock import patch
 from azure.storage.filedatalake import DataLakeServiceClient
 from azure.storage.filedatalake._models import ContentSettings
@@ -15,6 +16,10 @@ from azure.identity import DefaultAzureCredential
 from stock.data.model import crud
 from stock.data.model import models
 from stock.data.model.database import  SessionLocal, engine, Base
+
+os.environ["CLIENT_ORIGIN_URL"] = "http://localhost:0000"
+os.environ["AUTH0_DOMAIN"] = "test.uk.auth0.com"
+os.environ["AUTH0_AUDIENCE"] = "https://app.app.com"
 
 def init_test_db():
     Base.metadata.create_all(bind=engine)
