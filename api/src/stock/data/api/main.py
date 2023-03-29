@@ -2,8 +2,8 @@ import datetime
 import logging
 
 import uvicorn
-from .dependencies import validate_token
-from .config import settings
+from dependencies import validate_token
+from config import settings
 import secure
 import pytz
 from fastapi import FastAPI, Depends
