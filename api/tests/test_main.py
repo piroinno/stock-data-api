@@ -5,7 +5,6 @@ from src.stock.data.api.main import (
     get_ticker,
     get_eod_ticker
 )
-from src.stock.data.api.config import settings
 
 import pytest
 import os
@@ -17,7 +16,6 @@ from azure.identity import DefaultAzureCredential
 from stock.data.model import crud
 from stock.data.model import models
 from stock.data.model.database import  SessionLocal, engine, Base
-from src.stock.data.api.dependencies import validate_token
 
 def init_test_db():
     Base.metadata.create_all(bind=engine)
@@ -106,12 +104,6 @@ def add_exchanges(db: SessionLocal):
         acronym="LSE", mic="XLON"
     )
     )
-    
-@pytest.fixture
-def mock_validate_token(monkeypatch):
-    def mock_return(*args, **kwargs):
-        return "mocked"
-    monkeypatch.setattr("src.stock.data.api.main.validate_token", mock_return)
 
 @pytest.fixture
 def mock_get_data_lake_service_client(monkeypatch):
